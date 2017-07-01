@@ -1,14 +1,66 @@
-hash: 798753d1a24eaa185e7102443050d369842fc0827f6237cad4f6168bf990f600
-updated: 2017-07-01T23:54:25.830872292+08:00
+hash: 3cd5de0184532b1d9ec7bb5575df8b558c9d17422337c5c6585d3cbad598fda3
+updated: 2017-07-02T07:18:30.347227175+08:00
 imports:
+- name: github.com/c4pt0r/cfg
+  version: 429e6985f0b07bceaa33b57ee612fbca4797a9a6
+- name: github.com/coreos/etcd
+  version: 1408b337b67d4cb8355b3666b7eb8aaefbbfc167
+  subpackages:
+  - error
+- name: github.com/coreos/go-etcd
+  version: 003851be7bb0694fe3cc457a49529a19388ee7cf
+  subpackages:
+  - etcd
+- name: github.com/docopt/docopt-go
+  version: 784ddc588536785e7299f7272f39101f7faccc3f
+- name: github.com/fatih/color
+  version: 62e9147c64a1ed519147b62a56a14e83e2be02c1
+- name: github.com/mattn/go-colorable
+  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
+  repo: https://github.com/mattn/go-colorable
+- name: github.com/mattn/go-isatty
+  version: 57fdcb988a5c543893cc61bce354a6e24ab70022
+  repo: https://github.com/mattn/go-isatty
+- name: github.com/ngaut/log
+  version: d2af3a61f64d093457fb23b25d20f4ce3cd551ce
+- name: github.com/ngaut/logging
+  version: f98f5f4cd523647678af6f1726c5b5a14c9193d0
+- name: github.com/ngaut/pools
+  version: 6352e005618615ffaf1cb1c6622b8e91435751fe
+- name: github.com/ngaut/sync2
+  version: 7a24ed77b2efb460c1468b7dc917821c66e80e55
 - name: github.com/oschwald/maxminddb-golang
   version: d19f6d453e836d12ee8fe895d0494421e93ef8c1
+- name: github.com/ugorji/go
+  version: ded73eae5db7e7a0ef6f55aace87a2873c5d2b74
+  subpackages:
+  - codec
 - name: github.com/wfxiang08/cyutils
   version: dfb8bc2b5402cb534e3f53cbd9fc3897820f7b07
   subpackages:
+  - utils
+  - utils/atomic2
   - utils/errors
   - utils/rolling_log
   - utils/trace
+- name: github.com/wfxiang08/go-zookeeper
+  version: 184aa014b12119755d0eea6ffad2756ca6f73614
+  subpackages:
+  - zk
+- name: github.com/wfxiang08/go_thrift
+  version: a20c9e7b36a5ce2ff784c397d0e9b85b55b496c7
+  subpackages:
+  - thrift
+- name: github.com/wfxiang08/rpc_proxy
+  version: 7bbce59fbb4e6c4f774568c795b495563cf4e535
+  subpackages:
+  - src/proxy
+- name: github.com/wfxiang08/thrift_rpc_base
+  version: d0067c3d8839934b19b114d9ced535d6506577ce
+  subpackages:
+  - rpc_thrift/services
+  - rpc_utils
+  - zkhelper
 - name: golang.org/x/sys
   version: e48874b42435b4347fc52bdee0424a52abc974d7
   subpackages:

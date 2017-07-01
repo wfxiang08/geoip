@@ -4,3 +4,10 @@ import:
 - package: github.com/wfxiang08/cyutils
   subpackages:
   - utils/rolling_log
+- package: github.com/wfxiang08/go_thrift
+  subpackages:
+  - thrift
+- package: github.com/wfxiang08/thrift_rpc_base
+  subpackages:
+  - rpc_thrift/services
+- package: github.com/wfxiang08/rpc_proxy
