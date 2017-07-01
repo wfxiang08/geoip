@@ -1,0 +1,17 @@
+hash: 798753d1a24eaa185e7102443050d369842fc0827f6237cad4f6168bf990f600
+updated: 2017-07-01T23:54:25.830872292+08:00
+imports:
+- name: github.com/oschwald/maxminddb-golang
+  version: d19f6d453e836d12ee8fe895d0494421e93ef8c1
+- name: github.com/wfxiang08/cyutils
+  version: dfb8bc2b5402cb534e3f53cbd9fc3897820f7b07
+  subpackages:
+  - utils/errors
+  - utils/rolling_log
+  - utils/trace
+- name: golang.org/x/sys
+  version: e48874b42435b4347fc52bdee0424a52abc974d7
+  subpackages:
+  - unix
+  - windows
+testImports: []

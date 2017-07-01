@@ -1,0 +1,6 @@
+package: .
+import:
+- package: github.com/oschwald/maxminddb-golang
+- package: github.com/wfxiang08/cyutils
+  subpackages:
+  - utils/rolling_log
