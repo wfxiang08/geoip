@@ -31,10 +31,12 @@ class TestCode {
       $transport = new TFramedTransport($socket, true, true);
 
       // 指定后端服务
+      // XXX:
       $service_name = "ipgeo";
       $protocol = new TMultiplexedProtocol(new TBinaryProtocol($transport), $service_name);
 
       // 创建Client
+      // XXX:
       $client = new GeoIpServiceClient($protocol);
 
       $transport->open();

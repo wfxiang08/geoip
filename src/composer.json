@@ -1,7 +1,7 @@
 {
-    "name": "geoip",
+    "name": "wfxiang08/geoip",
     "description": "geip ip rpc service",
-    "keywords": ["yii2", "framework", "rpc", "thrift"],
+    "keywords": ["framework", "rpc", "thrift"],
     "homepage": "https://github.com/wfxiang08/geoip.git",
     "type": "project",
     "license": "BSD-3-Clause",
