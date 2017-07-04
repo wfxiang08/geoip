@@ -1,3 +1,5 @@
+namespace php geoip_service
+
 include "rpc_thrift.services.thrift"
 const string VERSION = "0.0.1"
 

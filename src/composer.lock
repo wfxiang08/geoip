@@ -1,0 +1,49 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "92082fa379b5c7aa97406f5c275531c6",
+    "packages": [
+        {
+            "name": "wfxiang08/thrift_rpc_php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wfxiang08/rpc_proxy_php.git",
+                "reference": "e7bfe54a330509f9d9bf893f3ee176fd343698e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wfxiang08/rpc_proxy_php/zipball/e7bfe54a330509f9d9bf893f3ee176fd343698e1",
+                "reference": "e7bfe54a330509f9d9bf893f3ee176fd343698e1",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Thrift\\": "RpcProxy/Thrift/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "https://github.com/wfxiang08/thrift_rpc_php",
+            "keywords": [
+                "rpc",
+                "thrift"
+            ],
+            "time": "2017-07-04 06:14:25"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
