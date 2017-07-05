@@ -40,8 +40,23 @@ class TestCode {
       $client = new GeoIpServiceClient($protocol);
 
       $transport->open();
+
+      // 同步调用
       $data = $client->IpToGeoData("218.97.243.4");
       var_dump($data);
+
+      // 异步调用
+      echo "Send request1 async\n";
+      $client->send_IpToGeoData("218.97.243.4");
+      echo "Send request2 async\n";
+      $client->send_IpToGeoData("106.201.41.11");
+
+      echo "Receive request1 async\n";
+      $data1 = $client->recv_IpToGeoData();
+      echo "Receive request2 async\n";
+      $data2 = $client->recv_IpToGeoData();
+      var_dump($data1);
+      var_dump($data2);
 
       $transport->close();
 
