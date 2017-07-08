@@ -64,7 +64,24 @@ class TestCode {
       print 'TException: ' . $tx->getMessage() . "\n";
     }
   }
+  function testDirectGeoIP() {
+    try {
+
+      $socket = new TSocket('/usr/local/video/geoip.sock');
+      $transport = new TFramedTransport($socket, true, true);
+      $protocol = new TBinaryProtocol($transport);
+      $client = new GeoIpServiceClient($protocol);
+      $transport->open();
+      $data = $client->IpToGeoData("218.97.243.4");
+      var_dump($data);
+
+      $transport->close();
+
+    } catch (TException $tx) {
+      print 'TException: ' . $tx->getMessage() . "\n";
+    }
+  }  
 }
 
 $test_code = new TestCode();
-$test_code->testProxiedRPCHelloworld();
+$test_code->testDirectGeoIP();

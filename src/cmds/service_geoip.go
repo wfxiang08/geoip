@@ -4,6 +4,7 @@ import (
 	ips "gen-go/geoip_service"
 	"github.com/wfxiang08/rpc_proxy/src/proxy"
 	"geoip"
+	"flag"
 )
 
 const (
@@ -15,6 +16,7 @@ const (
 var (
 	buildDate string
 	gitVersion string
+	ipData = flag.String("ip", IP_DATA, "Ip Data file")
 )
 
 func main() {
@@ -24,8 +26,8 @@ func main() {
 		proxy.ConfigCheckThriftService,
 
 		// 可以根据配置config来创建processor
-		func(config *proxy.Config) proxy.Server {
-			handler := geoip.NewHandler(IP_DATA)
+		func(config *proxy.ServiceConfig) proxy.Server {
+			handler := geoip.NewHandler(*ipData)
 			processor := ips.NewGeoIpServiceProcessor(handler)
 			return proxy.NewThriftRpcServer(config, processor)
 		}, buildDate, gitVersion)

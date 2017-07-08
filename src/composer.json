@@ -7,6 +7,6 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "require": {
-        "wfxiang08/thrift_rpc_php": ">=0.2-stable"
+        "wfxiang08/thrift_rpc_php": ">=0.2.1-stable"
     }
 }

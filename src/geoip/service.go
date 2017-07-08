@@ -14,6 +14,7 @@ var reader *maxminddb.Reader
 func IpToGeoData(ipStr string) (*GeoData, error) {
 	ip := net.ParseIP(ipStr)
 
+	log.Printf("Params: %s", ipStr)
 	var city City
 	err := reader.Lookup(ip, &city)
 	if err != nil {
@@ -26,8 +27,8 @@ func IpToGeoData(ipStr string) (*GeoData, error) {
 			Lat:            fmt.Sprintf("%.7f", city.Location.Latitude),
 			Lng:            fmt.Sprintf("%.7f", city.Location.Longitude),
 			Timezone:       city.Location.TimeZone,
-			Continent: city.Continent.Names["en"],
-			ContinentCode: city.Continent.Code,
+			Continent:      city.Continent.Names["en"],
+			ContinentCode:  city.Continent.Code,
 		}
 		if len(city.Subdivisions) > 0 {
 			geoData.Province = city.Subdivisions[0].IsoCode
