@@ -1,5 +1,5 @@
 hash: 3cd5de0184532b1d9ec7bb5575df8b558c9d17422337c5c6585d3cbad598fda3
-updated: 2017-07-06T10:23:53.821204996+08:00
+updated: 2017-07-08T19:46:21.487860512+08:00
 imports:
 - name: github.com/c4pt0r/cfg
   version: 429e6985f0b07bceaa33b57ee612fbca4797a9a6
@@ -12,13 +12,11 @@ imports:
   subpackages:
   - etcd
 - name: github.com/fatih/color
-  version: 62e9147c64a1ed519147b62a56a14e83e2be02c1
+  version: 34e4ee095d12986a2cef5ddb9aeb3b8cfcfea17c
 - name: github.com/mattn/go-colorable
-  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
-  repo: https://github.com/mattn/go-colorable
+  version: ed8eb9e318d7a84ce5915b495b7d35e0cfe7b5a8
 - name: github.com/mattn/go-isatty
-  version: 57fdcb988a5c543893cc61bce354a6e24ab70022
-  repo: https://github.com/mattn/go-isatty
+  version: 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
 - name: github.com/ngaut/log
   version: d2af3a61f64d093457fb23b25d20f4ce3cd551ce
 - name: github.com/ngaut/logging
@@ -50,7 +48,7 @@ imports:
   subpackages:
   - thrift
 - name: github.com/wfxiang08/rpc_proxy
-  version: 52385aa01644bee3615ded32c939ebcfa3a5fa71
+  version: 4c5b6a7ff3d3d708481d221c42781c059d71d49a
   subpackages:
   - src/proxy
 - name: github.com/wfxiang08/thrift_rpc_base
