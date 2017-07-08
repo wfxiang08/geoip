@@ -2,22 +2,12 @@
 
 require(__DIR__ . '/vendor/autoload.php');
 
+use Geoip\Services\GeoIpServiceClient;
 use Thrift\Exception\TException;
 use Thrift\Protocol\TBinaryProtocol;
 use Thrift\Protocol\TMultiplexedProtocol;
-use Thrift\Transport\TSocket;
 use Thrift\Transport\TFramedTransport;
-use Thrift\ClassLoader\ThriftClassLoader;
-
-$loader = new ThriftClassLoader();
-$loader->registerDefinition('geoip_service', __DIR__ . '/gen-php/');
-$loader->registerDefinition('rpc_thrift', __DIR__ . '/gen-php/');
-
-// 注册loader
-$loader->register();
-
-use geoip_service\GeoIpServiceClient;
-
+use Thrift\Transport\TSocket;
 
 class TestCode {
 
@@ -64,23 +54,45 @@ class TestCode {
       print 'TException: ' . $tx->getMessage() . "\n";
     }
   }
+
   function testDirectGeoIP() {
     try {
+      $start = microtime(true);
+      $iteration_num = 10000;
+      for ($i = 0; $i < 10000; $i++) {
+        $socket = new TSocket('/usr/local/video/geoip.sock');
+        $transport = new TFramedTransport($socket, true, true);
+        $protocol = new TBinaryProtocol($transport);
+        $client = new GeoIpServiceClient($protocol);
+        $transport->open();
+        $data = $client->IpToGeoData("218.97.243.4");
 
+        $transport->close();
+      }
+      $start = microtime(true) - $start;
+      echo "OpenClose, Elapsed: " . sprintf("%.3fms\n", $start / $iteration_num * 1000);
+
+      var_dump($data);
+
+      $start = microtime(true);
+      $iteration_num = 10000;
       $socket = new TSocket('/usr/local/video/geoip.sock');
       $transport = new TFramedTransport($socket, true, true);
       $protocol = new TBinaryProtocol($transport);
       $client = new GeoIpServiceClient($protocol);
       $transport->open();
-      $data = $client->IpToGeoData("218.97.243.4");
-      var_dump($data);
-
+      for ($i = 0; $i < 10000; $i++) {
+        $data = $client->IpToGeoData("218.97.243.4");
+      }
       $transport->close();
+      $start = microtime(true) - $start;
+      echo "No OpenClose, Elapsed: " . sprintf("%.3fms\n", $start / $iteration_num * 1000);
+      var_dump($data);
 
     } catch (TException $tx) {
       print 'TException: ' . $tx->getMessage() . "\n";
     }
-  }  
+  }
 }
 
 $test_code = new TestCode();

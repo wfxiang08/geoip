@@ -1,7 +1,7 @@
 package geoip
 
 import (
-	. "gen-go/geoip_service"
+	. "geoip/services"
 )
 
 type Handler struct {

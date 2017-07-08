@@ -2,7 +2,7 @@ package geoip
 
 import (
 	"fmt"
-	. "gen-go/geoip_service"
+	. "geoip/services"
 	"github.com/oschwald/maxminddb-golang"
 	log "github.com/wfxiang08/cyutils/utils/rolling_log"
 	"io/ioutil"

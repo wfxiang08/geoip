@@ -1,4 +1,4 @@
-namespace php rpc_thrift.services
+namespace php RpcThrift.Services
 
 exception RpcException {
   1: i32  code,

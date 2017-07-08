@@ -48,11 +48,11 @@ imports:
   subpackages:
   - thrift
 - name: github.com/wfxiang08/rpc_proxy
-  version: f26e8d2c4611b27824608147a0f57be9e09408d9
+  version: 9b971b3106e27afacc1991f4fd862744d2b27fb4
   subpackages:
   - src/proxy
 - name: github.com/wfxiang08/thrift_rpc_base
-  version: d0067c3d8839934b19b114d9ced535d6506577ce
+  version: ea90195d180d3280bec0eccd3d08dc74f1761972
   subpackages:
   - rpc_thrift/services
   - rpc_utils

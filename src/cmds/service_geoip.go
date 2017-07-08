@@ -1,7 +1,7 @@
 package main
 
 import (
-	ips "gen-go/geoip_service"
+	ips "geoip/services"
 	"github.com/wfxiang08/rpc_proxy/src/proxy"
 	"geoip"
 	"flag"
