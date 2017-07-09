@@ -14,7 +14,7 @@ var reader *maxminddb.Reader
 func IpToGeoData(ipStr string) (*GeoData, error) {
 	ip := net.ParseIP(ipStr)
 
-	log.Printf("Params: %s", ipStr)
+	// log.Printf("Params: %s", ipStr)
 	var city City
 	err := reader.Lookup(ip, &city)
 	if err != nil {

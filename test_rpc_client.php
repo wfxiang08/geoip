@@ -5,6 +5,8 @@ require(__DIR__ . '/vendor/autoload.php');
 use Geoip\Services\GeoIpServiceClient;
 use Thrift\Exception\TException;
 use Thrift\Protocol\TBinaryProtocol;
+use Thrift\Protocol\TBinaryProtocolAccelerated;
+
 use Thrift\Protocol\TMultiplexedProtocol;
 use Thrift\Transport\TFramedTransport;
 use Thrift\Transport\TSocket;
@@ -62,7 +64,7 @@ class TestCode {
       for ($i = 0; $i < $iteration_num ; $i++) {
         $socket = new TSocket('/usr/local/services/geoip/geoip.sock');
         $transport = new TFramedTransport($socket, true, true);
-        $protocol = new TBinaryProtocol($transport);
+        $protocol = new TBinaryProtocolAccelerated($transport);
         $client = new GeoIpServiceClient($protocol);
         $transport->open();
         $data = $client->IpToGeoData("218.97.243.4");

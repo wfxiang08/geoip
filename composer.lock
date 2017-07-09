@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "65211bf4f1bdcffb47fff584d2031258",
+    "content-hash": "3f2471ad0f9ebb845ae1c7bdbcab4b5b",
     "packages": [
         {
             "name": "wfxiang08/thrift_rpc_php",
-            "version": "0.2.3-stable",
+            "version": "0.2.4-stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wfxiang08/rpc_proxy_php.git",
-                "reference": "3e266b0629bb53631bb4f308ba262395e84713f5"
+                "reference": "e68d832aee9c8c8b1daaec8f75c50b3133362d55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wfxiang08/rpc_proxy_php/zipball/3e266b0629bb53631bb4f308ba262395e84713f5",
-                "reference": "3e266b0629bb53631bb4f308ba262395e84713f5",
+                "url": "https://api.github.com/repos/wfxiang08/rpc_proxy_php/zipball/e68d832aee9c8c8b1daaec8f75c50b3133362d55",
+                "reference": "e68d832aee9c8c8b1daaec8f75c50b3133362d55",
                 "shasum": ""
             },
             "type": "project",
@@ -38,7 +38,7 @@
                 "rpc",
                 "thrift"
             ],
-            "time": "2017-07-08T17:05:39+00:00"
+            "time": "2017-07-09T00:03:08+00:00"
         }
     ],
     "packages-dev": [],
