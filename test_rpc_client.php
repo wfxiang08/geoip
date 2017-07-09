@@ -60,7 +60,7 @@ class TestCode {
   function testDirectGeoIP() {
     try {
       $start = microtime(true);
-      $iteration_num = 1000;
+      $iteration_num = 1;
       for ($i = 0; $i < $iteration_num ; $i++) {
         $socket = new TSocket('/usr/local/services/geoip/geoip.sock');
         $transport = new TFramedTransport($socket, true, true);
@@ -68,6 +68,9 @@ class TestCode {
         $client = new GeoIpServiceClient($protocol);
         $transport->open();
         $data = $client->IpToGeoData("218.97.243.4");
+        var_dump($data);
+        $data = $client->IpToGeoData("67.220.91.30");
+        var_dump($data);
 
         $transport->close();
       }
