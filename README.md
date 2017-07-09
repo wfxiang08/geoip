@@ -1,4 +1,4 @@
-#geoip rpc
+# geoip rpc
 * 基于GeoIP2-City.mmdb实现从ip到geo信息的映射
 * 服务器采用golang开发，并且通过rpc对外提供服务
 
@@ -17,3 +17,11 @@
 	* composer install
 	* php test_rpc_client.php
 	* 注意: autoload.php的使用
+
+## 发布
+ * https://packagist.org/packages/wfxiang08/geoip
+ * git tag -a 0.0.1-stable -m"添加新功能"
+ * git push origin 0.0.2-stable
+ * git push origin :0.0.1-stable 删除旧的版本
+ * 在 https://packagist.org/packages/wfxiang08/geoip 上面更新
+

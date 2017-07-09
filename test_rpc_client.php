@@ -68,9 +68,15 @@ class TestCode {
         $client = new GeoIpServiceClient($protocol);
         $transport->open();
         $data = $client->IpToGeoData("218.97.243.4");
+        echo "==>218.97.243.4\n";
         var_dump($data);
         $data = $client->IpToGeoData("67.220.91.30");
+        echo "==>67.220.91.30\n";
         var_dump($data);
+        $data = $client->IpToGeoData("204.110.13.84");
+        echo "==>204.110.13.84\n";
+        var_dump($data);
+
 
         $transport->close();
       }
