@@ -1,24 +1,40 @@
 package geoip
 
 import (
+	"encoding/json"
 	"fmt"
 	. "geoip/services"
 	"github.com/oschwald/maxminddb-golang"
 	log "github.com/wfxiang08/cyutils/utils/rolling_log"
+	"github.com/wfxiang08/thrift_rpc_base/rpcthrift/services"
 	"io/ioutil"
 	"net"
+	"time"
+)
+
+// 只是为了方便定位
+const (
+	kErrorCodeNotFound = 1111
 )
 
 var reader *maxminddb.Reader
 
-func IpToGeoData(ipStr string) (*GeoData, error) {
-	ip := net.ParseIP(ipStr)
+func microseconds() int64 {
+	return time.Now().UnixNano() / int64(time.Microsecond)
+}
 
-	// log.Printf("Params: %s", ipStr)
+// 内部函数不要随便返回一般的Error, 统一封装成为: RpcException
+func IpToGeoData(ipStr string) (*GeoData, *services.RpcException) {
+	start := microseconds()
+	ip := net.ParseIP(ipStr)
 	var city City
 	err := reader.Lookup(ip, &city)
 	if err != nil {
-		return nil, err
+		log.Debugf("IP: %s, no result found, elapsed: %dms", ipStr, microseconds() - start)
+		return nil, &services.RpcException{
+			Code: kErrorCodeNotFound,
+			Msg:  err.Error(),
+		}
 	} else {
 		geoData := &GeoData{
 			CountryName:    city.Country.Names["en"],
@@ -33,6 +49,9 @@ func IpToGeoData(ipStr string) (*GeoData, error) {
 		if len(city.Subdivisions) > 0 {
 			geoData.Province = city.Subdivisions[0].IsoCode
 		}
+
+		data, _ := json.Marshal(geoData)
+		log.Debugf("IP: %s, result found: %s, elapsed: %dms", ipStr, string(data), microseconds() - start)
 		return geoData, nil
 	}
 }

@@ -1149,7 +1149,7 @@ func (p *geoIpServiceProcessorIpToGeoData) Process(seqId int32, iprot, oprot thr
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing IpToGeoData: "+err2.Error())
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing IpToGeoData: " + err2.Error())
 			oprot.WriteMessageBegin("IpToGeoData", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
@@ -1184,6 +1184,7 @@ type geoIpServiceProcessorGetLatlng struct {
 func (p *geoIpServiceProcessorGetLatlng) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	args := GeoIpServiceGetLatlngArgs{}
 	if err = args.Read(iprot); err != nil {
+		// 如果数据读取错误，则直接返回err, 终止连接(数据存在问题?)
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
 		oprot.WriteMessageBegin("GetLatlng", thrift.EXCEPTION, seqId)
@@ -1197,12 +1198,14 @@ func (p *geoIpServiceProcessorGetLatlng) Process(seqId int32, iprot, oprot thrif
 	result := GeoIpServiceGetLatlngResult{}
 	var retval *LatLng
 	var err2 error
+	// 其他异常如何处理呢?
 	if retval, err2 = p.handler.GetLatlng(args.IP); err2 != nil {
 		switch v := err2.(type) {
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetLatlng: "+err2.Error())
+			// 业务出现异常，RPC没有问题，连接保留
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetLatlng: " + err2.Error())
 			oprot.WriteMessageBegin("GetLatlng", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
@@ -1212,9 +1215,13 @@ func (p *geoIpServiceProcessorGetLatlng) Process(seqId int32, iprot, oprot thrif
 	} else {
 		result.Success = retval
 	}
+
+	// 业务层返回的Success或者Re(Exception)
 	if err2 = oprot.WriteMessageBegin("GetLatlng", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
+
+	// 返回Result
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
 		err = err2
 	}
@@ -1224,9 +1231,11 @@ func (p *geoIpServiceProcessorGetLatlng) Process(seqId int32, iprot, oprot thrif
 	if err2 = oprot.Flush(); err == nil && err2 != nil {
 		err = err2
 	}
+	// 写数据错误，则返回 (false, err)
 	if err != nil {
 		return
 	}
+	// 正常返回，没有错误
 	return true, err
 }
 
@@ -1255,7 +1264,7 @@ func (p *geoIpServiceProcessorGetCityName) Process(seqId int32, iprot, oprot thr
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCityName: "+err2.Error())
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCityName: " + err2.Error())
 			oprot.WriteMessageBegin("GetCityName", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
@@ -1308,7 +1317,7 @@ func (p *geoIpServiceProcessorGetCountryName) Process(seqId int32, iprot, oprot 
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCountryName: "+err2.Error())
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCountryName: " + err2.Error())
 			oprot.WriteMessageBegin("GetCountryName", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
@@ -1361,7 +1370,7 @@ func (p *geoIpServiceProcessorGetCountryCode) Process(seqId int32, iprot, oprot 
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCountryCode: "+err2.Error())
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCountryCode: " + err2.Error())
 			oprot.WriteMessageBegin("GetCountryCode", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
@@ -1414,7 +1423,7 @@ func (p *geoIpServiceProcessorGetProvince) Process(seqId int32, iprot, oprot thr
 		case *services.RpcException:
 			result.Re = v
 		default:
-			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetProvince: "+err2.Error())
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetProvince: " + err2.Error())
 			oprot.WriteMessageBegin("GetProvince", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
 			oprot.WriteMessageEnd()
