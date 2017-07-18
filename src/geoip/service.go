@@ -30,7 +30,7 @@ func IpToGeoData(ipStr string) (*GeoData, *services.RpcException) {
 	var city City
 	err := reader.Lookup(ip, &city)
 	if err != nil {
-		log.Debugf("IP: %s, no result found, elapsed: %dms", ipStr, microseconds() - start)
+		log.Debugf("WARNGIN: IP: %s, no result found, elapsed: %.3fms", ipStr, float64(microseconds()-start)*0.001)
 		return nil, &services.RpcException{
 			Code: kErrorCodeNotFound,
 			Msg:  err.Error(),
@@ -51,7 +51,7 @@ func IpToGeoData(ipStr string) (*GeoData, *services.RpcException) {
 		}
 
 		data, _ := json.Marshal(geoData)
-		log.Debugf("IP: %s, result found: %s, elapsed: %dms", ipStr, string(data), microseconds() - start)
+		log.Debugf("IP: %s, result found: %s, elapsed: %.3fms", ipStr, string(data), float64(microseconds()-start)*0.001)
 		return geoData, nil
 	}
 }
