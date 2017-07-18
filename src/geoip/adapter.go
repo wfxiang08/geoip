@@ -7,14 +7,16 @@ import (
 type Handler struct {
 }
 
-func NewHandler(dbPath string) (h*Handler) {
+func NewHandler(dbPath string) (h *Handler) {
 	InitMaxMindDb(dbPath)
 	return &Handler{}
 }
+
 // Parameters:
 //  - IP
 func (h *Handler) IpToGeoData(ip string) (r *GeoData, err error) {
-	return IpToGeoData(ip)
+	r, err = IpToGeoData(ip)
+	return
 }
 
 // Parameters:
@@ -82,6 +84,6 @@ func (h *Handler) GetProvince(ip string) (r string, err error) {
 	}
 }
 
-func (h *Handler)Ping() (err error) {
+func (h *Handler) Ping() (err error) {
 	return nil
 }

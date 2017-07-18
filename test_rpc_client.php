@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__ . '/vendor/autoload.php');
+require(__DIR__.'/vendor/autoload.php');
 
 use Geoip\Services\GeoIpServiceClient;
 use Thrift\Exception\TException;
@@ -53,7 +53,7 @@ class TestCode {
       $transport->close();
 
     } catch (TException $tx) {
-      print 'TException: ' . $tx->getMessage() . "\n";
+      print 'TException: '.$tx->getMessage()."\n";
     }
   }
 
@@ -61,10 +61,10 @@ class TestCode {
     try {
       $start = microtime(true);
       $iteration_num = 1;
-      for ($i = 0; $i < $iteration_num ; $i++) {
+      for ($i = 0; $i < $iteration_num; $i++) {
         $socket = new TSocket('/usr/local/services/geoip/geoip.sock');
         $transport = new TFramedTransport($socket, true, true);
-        $protocol = new TBinaryProtocolAccelerated($transport);
+        $protocol = new TBinaryProtocol($transport);
         $client = new GeoIpServiceClient($protocol);
         $transport->open();
         $data = $client->IpToGeoData("218.97.243.4");
@@ -81,7 +81,7 @@ class TestCode {
         $transport->close();
       }
       $start = microtime(true) - $start;
-      echo "OpenClose, Elapsed: " . sprintf("%.3fms\n", $start / $iteration_num * 1000);
+      echo "OpenClose, Elapsed: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
 
       var_dump($data);
 
@@ -96,11 +96,11 @@ class TestCode {
       }
       $transport->close();
       $start = microtime(true) - $start;
-      echo "No OpenClose, Elapsed: " . sprintf("%.3fms\n", $start / $iteration_num * 1000);
+      echo "No OpenClose, Elapsed: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
       var_dump($data);
 
     } catch (TException $tx) {
-      print 'TException: ' . $tx->getMessage() . "\n";
+      print 'TException: '.$tx->getMessage()."\n";
     }
   }
 }
