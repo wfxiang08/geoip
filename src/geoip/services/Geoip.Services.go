@@ -1131,12 +1131,16 @@ type geoIpServiceProcessorIpToGeoData struct {
 func (p *geoIpServiceProcessorIpToGeoData) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	args := GeoIpServiceIpToGeoDataArgs{}
 	if err = args.Read(iprot); err != nil {
+		// 1. 数据读取错误，Connection可能存在脏数据
 		iprot.ReadMessageEnd()
+
+		// 告知Client出现问题
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
 		oprot.WriteMessageBegin("IpToGeoData", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush()
+
 		return false, err
 	}
 
@@ -1144,11 +1148,15 @@ func (p *geoIpServiceProcessorIpToGeoData) Process(seqId int32, iprot, oprot thr
 	result := GeoIpServiceIpToGeoDataResult{}
 	var retval *GeoData
 	var err2 error
+	// 2. 正常的函数调用
 	if retval, err2 = p.handler.IpToGeoData(args.IP); err2 != nil {
 		switch v := err2.(type) {
+		// 如果是来自业务层的异常，说明rpc服务层还是OK的
 		case *services.RpcException:
+			// 设置异常字段
 			result.Re = v
 		default:
+			// 其他未知类型的错误
 			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing IpToGeoData: " + err2.Error())
 			oprot.WriteMessageBegin("IpToGeoData", thrift.EXCEPTION, seqId)
 			x.Write(oprot)
@@ -1157,8 +1165,14 @@ func (p *geoIpServiceProcessorIpToGeoData) Process(seqId int32, iprot, oprot thr
 			return true, err2
 		}
 	} else {
+		// 设置返回结果
 		result.Success = retval
 	}
+
+	// 正常返回结果
+	// 如何看到Process返回Error
+	// 一旦出现Error, Connection就需要关闭，放弃
+	// 1. Client也可能受到 TApplicationException, 或者 RpcException， 前者需要关闭Connection; 后者可以继续服用Connection
 	if err2 = oprot.WriteMessageBegin("IpToGeoData", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
