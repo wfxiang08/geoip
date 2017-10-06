@@ -65,7 +65,7 @@ class TestCode {
       $transport = new \Thrift\Transport\TFramedTransport($sock);
       $protocol = new \Thrift\Protocol\TBinaryProtocol($transport);
       $client = new GeoIpServiceClient($protocol);
-      
+
       for ($i = 0; $i < 100; $i++) {
         $data = $client->IpToGeoData("218.97.243.4");
       }
