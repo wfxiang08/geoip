@@ -4,100 +4,77 @@ require(__DIR__.'/vendor/autoload.php');
 
 use Geoip\Services\GeoIpServiceClient;
 use Thrift\Exception\TException;
-use Thrift\Protocol\TBinaryProtocol;
 use Thrift\Protocol\TBinaryProtocolAccelerated;
 
-use Thrift\Protocol\TMultiplexedProtocol;
-use Thrift\Transport\TFramedTransport;
-use Thrift\Transport\TSocket;
-
 class TestCode {
+  function testDirectGeoIP() {
+    $this->t1();
+    $this->t2();
 
-  function testProxiedRPCHelloworld() {
+    echo "================\n";
+    $this->t1();
+    $this->t2();
+  }
+
+  function t1() {
+    echo "testing t1\n";
     try {
+      $iteration_num = 100;
+      $start1 = microtime(true);
+      $sock = new SmSocket('127.0.0.1', 5563, true, true);
+      $sock->pconnect(200);
+      $start1 = microtime(true) - $start1;
 
-      // 直接使用rpc proxy进行通信
-      $socket = new TSocket('tcp://localhost', 5550);
-      // $socket = new TSocket('/usr/local/rpc_proxy/proxy.sock');
+      $start2 = microtime(true);
+      $sock = new SmSocket('127.0.0.1', 5563, true, true);
+      $sock->pconnect(200);
+      $client = new GeoIpServiceClient($sock);
 
-      $transport = new TFramedTransport($socket, true, true);
+      $start2 = microtime(true) - $start2;
 
-      // 指定后端服务
-      // XXX:
-      $service_name = "ipgeo";
-      $protocol = new TMultiplexedProtocol(new TBinaryProtocol($transport), $service_name);
 
-      // 创建Client
-      // XXX:
-      $client = new GeoIpServiceClient($protocol);
+      $start = microtime(true);
 
-      $transport->open();
+      echo "-----------------\n";
+      for ($i = 0; $i < 100; $i++) {
+        $data = $client->IpToGeoData("218.97.243.4");
+      }
 
-      // 同步调用
-      $data = $client->IpToGeoData("218.97.243.4");
-      var_dump($data);
-
-      // 异步调用
-      echo "Send request1 async\n";
-      $client->send_IpToGeoData("218.97.243.4");
-      echo "Send request2 async\n";
-      $client->send_IpToGeoData("106.201.41.11");
-
-      echo "Receive request1 async\n";
-      $data1 = $client->recv_IpToGeoData();
-      echo "Receive request2 async\n";
-      $data2 = $client->recv_IpToGeoData();
-      var_dump($data1);
-      var_dump($data2);
-
-      $transport->close();
+      $start = microtime(true) - $start;
+      echo "OpenClose: ".sprintf("%.3fms", $start1 * 1000).", Reopen: ".sprintf("%.3fms", $start2 * 1000).", IpToGeoData: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
 
     } catch (TException $tx) {
       print 'TException: '.$tx->getMessage()."\n";
     }
   }
 
-  function testDirectGeoIP() {
+  function t2() {
+    echo "testing t2\n";
     try {
-      $start = microtime(true);
-      $iteration_num = 1;
-      for ($i = 0; $i < $iteration_num; $i++) {
-        $socket = new TSocket('/usr/local/services/geoip/geoip.sock');
-        $transport = new TFramedTransport($socket, true, true);
-        $protocol = new TBinaryProtocol($transport);
-        $client = new GeoIpServiceClient($protocol);
-        $transport->open();
-        $data = $client->IpToGeoData("218.97.243.4");
-        echo "==>218.97.243.4\n";
-        var_dump($data);
-        $data = $client->IpToGeoData("67.220.91.30");
-        echo "==>67.220.91.30\n";
-        var_dump($data);
-        $data = $client->IpToGeoData("204.110.13.84");
-        echo "==>204.110.13.84\n";
-        var_dump($data);
+      $iteration_num = 100;
+      $start1 = microtime(true);
+      $sock = new \Thrift\Transport\TSocket('tcp://127.0.0.1', 5563);
+      $sock->open();
+      $start1 = microtime(true) - $start1;
 
+      $start2 = microtime(true);
+      $sock = new \Thrift\Transport\TSocket('tcp://127.0.0.1', 5563);
+      $sock->open();
+      $start2 = microtime(true) - $start2;
 
-        $transport->close();
-      }
-      $start = microtime(true) - $start;
-      echo "OpenClose, Elapsed: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
-
-      var_dump($data);
 
       $start = microtime(true);
-      $socket = new TSocket('/usr/local/services/geoip/geoip.sock');
-      $transport = new TFramedTransport($socket, true, true);
-      $protocol = new TBinaryProtocol($transport);
+      $transport = new \Thrift\Transport\TFramedTransport($sock);
+      $protocol = new \Thrift\Protocol\TBinaryProtocol($transport);
       $client = new GeoIpServiceClient($protocol);
-      $transport->open();
-      for ($i = 0; $i < $iteration_num; $i++) {
+
+      echo "-----------------\n";
+      for ($i = 0; $i < 100; $i++) {
         $data = $client->IpToGeoData("218.97.243.4");
       }
-      $transport->close();
+
       $start = microtime(true) - $start;
-      echo "No OpenClose, Elapsed: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
-      var_dump($data);
+      echo "OpenClose: ".sprintf("%.3fms", $start1 * 1000).", Reopen: ".sprintf("%.3fms", $start2 * 1000).", IpToGeoData: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
 
     } catch (TException $tx) {
       print 'TException: '.$tx->getMessage()."\n";

@@ -13,6 +13,7 @@ use Thrift\Type\TMessageType;
 use Thrift\Exception\TException;
 use Thrift\Exception\TProtocolException;
 use Thrift\Protocol\TProtocol;
+use Thrift\Protocol\TBinaryProtocol;
 use Thrift\Protocol\TBinaryProtocolAccelerated;
 use Thrift\Exception\TApplicationException;
 
@@ -21,55 +22,7 @@ use Thrift\Exception\TApplicationException;
  * 输入和输出的结果
  */
 class GeoData {
-  static $isValidate = false;
-
-  static $_TSPEC = array(
-    1 => array(
-      'var' => 'country_name',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    2 => array(
-      'var' => 'country_iso_code',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    3 => array(
-      'var' => 'city_name',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    4 => array(
-      'var' => 'lat',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    5 => array(
-      'var' => 'lng',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    6 => array(
-      'var' => 'timezone',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    7 => array(
-      'var' => 'continent',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    8 => array(
-      'var' => 'continent_code',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    9 => array(
-      'var' => 'province',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    );
+  static $_TSPEC;
 
   /**
    * @var string
@@ -109,6 +62,46 @@ class GeoData {
   public $province = null;
 
   public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'country_name',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'country_iso_code',
+          'type' => TType::STRING,
+          ),
+        3 => array(
+          'var' => 'city_name',
+          'type' => TType::STRING,
+          ),
+        4 => array(
+          'var' => 'lat',
+          'type' => TType::STRING,
+          ),
+        5 => array(
+          'var' => 'lng',
+          'type' => TType::STRING,
+          ),
+        6 => array(
+          'var' => 'timezone',
+          'type' => TType::STRING,
+          ),
+        7 => array(
+          'var' => 'continent',
+          'type' => TType::STRING,
+          ),
+        8 => array(
+          'var' => 'continent_code',
+          'type' => TType::STRING,
+          ),
+        9 => array(
+          'var' => 'province',
+          'type' => TType::STRING,
+          ),
+        );
+    }
     if (is_array($vals)) {
       if (isset($vals['country_name'])) {
         $this->country_name = $vals['country_name'];
@@ -288,20 +281,7 @@ class GeoData {
 }
 
 class LatLng {
-  static $isValidate = false;
-
-  static $_TSPEC = array(
-    1 => array(
-      'var' => 'lat',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    2 => array(
-      'var' => 'lng',
-      'isRequired' => false,
-      'type' => TType::STRING,
-      ),
-    );
+  static $_TSPEC;
 
   /**
    * @var string
@@ -313,6 +293,18 @@ class LatLng {
   public $lng = null;
 
   public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'lat',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'lng',
+          'type' => TType::STRING,
+          ),
+        );
+    }
     if (is_array($vals)) {
       if (isset($vals['lat'])) {
         $this->lat = $vals['lat'];
