@@ -28,20 +28,18 @@ class TestCode {
       $start2 = microtime(true);
       $sock = new SmSocket('127.0.0.1', 5563, true, true);
       $sock->pconnect(200);
-      $client = new GeoIpServiceClient($sock);
-
       $start2 = microtime(true) - $start2;
 
 
       $start = microtime(true);
+      $client = new GeoIpServiceClient($sock);
 
-      echo "-----------------\n";
       for ($i = 0; $i < 100; $i++) {
         $data = $client->IpToGeoData("218.97.243.4");
       }
 
       $start = microtime(true) - $start;
-      echo "OpenClose: ".sprintf("%.3fms", $start1 * 1000).", Reopen: ".sprintf("%.3fms", $start2 * 1000).", IpToGeoData: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
+      echo "Open: ".sprintf("%.3fms", $start1 * 1000).", Reopen: ".sprintf("%.3fms", $start2 * 1000).", IpToGeoData: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
 
     } catch (TException $tx) {
       print 'TException: '.$tx->getMessage()."\n";
@@ -67,8 +65,7 @@ class TestCode {
       $transport = new \Thrift\Transport\TFramedTransport($sock);
       $protocol = new \Thrift\Protocol\TBinaryProtocol($transport);
       $client = new GeoIpServiceClient($protocol);
-
-      echo "-----------------\n";
+      
       for ($i = 0; $i < 100; $i++) {
         $data = $client->IpToGeoData("218.97.243.4");
       }
