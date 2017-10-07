@@ -6,14 +6,17 @@ use Geoip\Services\GeoIpServiceClient;
 use Thrift\Exception\TException;
 use Thrift\Protocol\TBinaryProtocolAccelerated;
 
+// const HOST = '127.0.0.1';
+const HOST = '/usr/local/services/geoip/geoip.sock';
+
 class TestCode {
   function testDirectGeoIP() {
     $this->t1();
-    $this->t2();
+//    $this->t2();
 
-    echo "================\n";
-    $this->t1();
-    $this->t2();
+//    echo "================\n";
+//    $this->t1();
+//    $this->t2();
   }
 
   function t1() {
@@ -21,12 +24,12 @@ class TestCode {
     try {
       $iteration_num = 100;
       $start1 = microtime(true);
-      $sock = new SmSocket('127.0.0.1', 5563, true, true);
+      $sock = new SmSocket(HOST, 5563, true, true);
       $sock->pconnect(200);
       $start1 = microtime(true) - $start1;
 
       $start2 = microtime(true);
-      $sock = new SmSocket('127.0.0.1', 5563, true, true);
+      $sock = new SmSocket(HOST, 5563, true, true);
       $sock->pconnect(200);
       $start2 = microtime(true) - $start2;
 
@@ -41,6 +44,7 @@ class TestCode {
       $start = microtime(true) - $start;
       echo "Open: ".sprintf("%.3fms", $start1 * 1000).", Reopen: ".sprintf("%.3fms", $start2 * 1000).", IpToGeoData: ".sprintf("%.3fms\n", $start / $iteration_num * 1000);
 
+      var_dump($data);
     } catch (TException $tx) {
       print 'TException: '.$tx->getMessage()."\n";
     }
@@ -51,12 +55,12 @@ class TestCode {
     try {
       $iteration_num = 100;
       $start1 = microtime(true);
-      $sock = new \Thrift\Transport\TSocket('tcp://127.0.0.1', 5563);
+      $sock = new \Thrift\Transport\TSocket('tcp://' . HOST, 5563);
       $sock->open();
       $start1 = microtime(true) - $start1;
 
       $start2 = microtime(true);
-      $sock = new \Thrift\Transport\TSocket('tcp://127.0.0.1', 5563);
+      $sock = new \Thrift\Transport\TSocket('tcp://' . HOST, 5563);
       $sock->open();
       $start2 = microtime(true) - $start2;
 
