@@ -4,6 +4,7 @@
 package main
 
 import (
+        "context"
         "flag"
         "fmt"
         "math"
@@ -131,7 +132,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.IpToGeoData(value0))
+    fmt.Print(client.IpToGeoData(context.Background(), value0))
     fmt.Print("\n")
     break
   case "GetLatlng":
@@ -141,7 +142,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.GetLatlng(value0))
+    fmt.Print(client.GetLatlng(context.Background(), value0))
     fmt.Print("\n")
     break
   case "GetCityName":
@@ -151,7 +152,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.GetCityName(value0))
+    fmt.Print(client.GetCityName(context.Background(), value0))
     fmt.Print("\n")
     break
   case "GetCountryName":
@@ -161,7 +162,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.GetCountryName(value0))
+    fmt.Print(client.GetCountryName(context.Background(), value0))
     fmt.Print("\n")
     break
   case "GetCountryCode":
@@ -171,7 +172,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.GetCountryCode(value0))
+    fmt.Print(client.GetCountryCode(context.Background(), value0))
     fmt.Print("\n")
     break
   case "GetProvince":
@@ -181,7 +182,7 @@ func main() {
     }
     argvalue0 := flag.Arg(1)
     value0 := argvalue0
-    fmt.Print(client.GetProvince(value0))
+    fmt.Print(client.GetProvince(context.Background(), value0))
     fmt.Print("\n")
     break
   case "ping":
@@ -189,7 +190,7 @@ func main() {
       fmt.Fprintln(os.Stderr, "Ping requires 0 args")
       flag.Usage()
     }
-    fmt.Print(client.Ping())
+    fmt.Print(client.Ping(context.Background()))
     fmt.Print("\n")
     break
   case "":

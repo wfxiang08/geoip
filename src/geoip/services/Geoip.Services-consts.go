@@ -6,6 +6,7 @@ package services
 import (
 	"bytes"
 	"reflect"
+	"context"
 	"fmt"
 	"github.com/wfxiang08/go_thrift/thrift"
 	"github.com/wfxiang08/thrift_rpc_base/rpcthrift/services"
@@ -15,6 +16,7 @@ import (
 // (needed to ensure safety because of naive import list construction.)
 var _ = thrift.ZERO
 var _ = fmt.Printf
+var _ = context.Background
 var _ = reflect.DeepEqual
 var _ = bytes.Equal
 
