@@ -3,3 +3,4 @@ vendor
 
 /src/tool_*
 /src/service_*
+/src/gen-php

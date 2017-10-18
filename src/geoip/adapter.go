@@ -1,6 +1,7 @@
 package geoip
 
 import (
+	"context"
 	. "geoip/services"
 )
 
@@ -8,20 +9,20 @@ type Handler struct {
 }
 
 func NewHandler(dbPath string) (h *Handler) {
-	InitMaxMindDb(dbPath)
+	InitMaxMindDb(dbPath, true)
 	return &Handler{}
 }
 
 // Parameters:
 //  - IP
-func (h *Handler) IpToGeoData(ip string) (r *GeoData, err error) {
+func (h *Handler) IpToGeoData(ctx context.Context, ip string) (r *GeoData, err error) {
 	r, err = IpToGeoData(ip)
 	return
 }
 
 // Parameters:
 //  - IP
-func (h *Handler) GetLatlng(ip string) (r *LatLng, err error) {
+func (h *Handler) GetLatlng(ctx context.Context, ip string) (r *LatLng, err error) {
 	var g *GeoData
 	g, err = IpToGeoData(ip)
 
@@ -34,7 +35,7 @@ func (h *Handler) GetLatlng(ip string) (r *LatLng, err error) {
 
 // Parameters:
 //  - IP
-func (h *Handler) GetCityName(ip string) (r string, err error) {
+func (h *Handler) GetCityName(ctx context.Context, ip string) (r string, err error) {
 	var g *GeoData
 	g, err = IpToGeoData(ip)
 
@@ -47,7 +48,7 @@ func (h *Handler) GetCityName(ip string) (r string, err error) {
 
 // Parameters:
 //  - IP
-func (h *Handler) GetCountryName(ip string) (r string, err error) {
+func (h *Handler) GetCountryName(ctx context.Context, ip string) (r string, err error) {
 	var g *GeoData
 	g, err = IpToGeoData(ip)
 
@@ -60,7 +61,7 @@ func (h *Handler) GetCountryName(ip string) (r string, err error) {
 
 // Parameters:
 //  - IP
-func (h *Handler) GetCountryCode(ip string) (r string, err error) {
+func (h *Handler) GetCountryCode(ctx context.Context, ip string) (r string, err error) {
 	var g *GeoData
 	g, err = IpToGeoData(ip)
 
@@ -73,7 +74,7 @@ func (h *Handler) GetCountryCode(ip string) (r string, err error) {
 
 // Parameters:
 //  - IP
-func (h *Handler) GetProvince(ip string) (r string, err error) {
+func (h *Handler) GetProvince(ctx context.Context, ip string) (r string, err error) {
 	var g *GeoData
 	g, err = IpToGeoData(ip)
 
@@ -84,6 +85,6 @@ func (h *Handler) GetProvince(ip string) (r string, err error) {
 	}
 }
 
-func (h *Handler) Ping() (err error) {
+func (h *Handler) Ping(ctx context.Context) (err error) {
 	return nil
 }

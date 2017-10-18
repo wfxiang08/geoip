@@ -11,3 +11,10 @@ import:
   subpackages:
   - rpc_thrift/services
 - package: github.com/wfxiang08/rpc_proxy
+  version: 2f31f548a765f65599f292259356f8ab8fcc399a
+- package: github.com/wfxiang08/overseer
+  version: dfabe633e8d251bbf3d9c2f23e4592ac0e1ebcf8
+- package: github.com/kardianos/osext
+- package: github.com/getsentry/raven-go
+- package: github.com/certifi/gocertifi
+  version: 2017.07.27
